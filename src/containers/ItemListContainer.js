@@ -1,30 +1,37 @@
-import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
-import { getProductos, getProductosByCategoria } from '../data/productos';
-import ItemList from '../components/ItemList';
+import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+import { getDocs, collection, getFirestore, query, where } from "firebase/firestore";
+import ItemList from "../components/ItemList";
 
 function ItemListContainer({ saludo }) {
+  const [items, setItems] = useState([]);
+  const [loading, setLoading] = useState(true);
   const { categoryId } = useParams();
-  const [productos, setProductos] = useState([]);
 
   useEffect(() => {
-    const fetchData = categoryId ? getProductosByCategoria : getProductos;
+    const db = getFirestore();
+    const itemsCollection = collection(db, "items");
 
-    fetchData(categoryId)
-      .then((res) => {
-        setProductos(res);
+    const q = categoryId
+      ? query(itemsCollection, where("categoria", "==", categoryId))
+      : itemsCollection;
+
+    getDocs(q)
+      .then((snapshot) => {
+        if (snapshot.size === 0) {
+          console.log("No hay resultados");
+        }
+        const docs = snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
+        setItems(docs);
       })
-      .catch((err) => console.error(err));
+      .catch((error) => console.log(error))
+      .finally(() => setLoading(false));
   }, [categoryId]);
 
-  const categoriaFormateada = categoryId
-    ? categoryId.charAt(0).toUpperCase() + categoryId.slice(1)
-    : null;
-
   return (
-    <div className="container text-center mt-4">
-      <h2>{categoryId ? `Categoría: ${categoriaFormateada}` : saludo}</h2>
-      <ItemList productos={productos} />
+    <div>
+      <h2>{saludo}</h2>
+      {loading ? <p>Cargando productos...</p> : <ItemList items={items} />}
     </div>
   );
 }

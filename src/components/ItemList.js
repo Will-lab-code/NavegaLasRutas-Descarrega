@@ -1,12 +1,12 @@
 import Item from './Item';
 
-function ItemList({ productos }) {
+function ItemList({ items }) {
   return (
-    <div className="container mt-4">
+    <div className="item-list">
       <div className="row">
-        {productos.map((prod) => (
-          <div key={prod.id} className="col-md-4 d-flex justify-content-center">
-            <Item producto={prod} />
+        {items.map((item) => (
+          <div key={item.id} className="col-md-4 d-flex justify-content-center">
+            <Item item={item} />
           </div>
         ))}
       </div>

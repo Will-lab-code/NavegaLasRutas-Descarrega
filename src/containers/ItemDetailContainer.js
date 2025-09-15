@@ -1,27 +1,31 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { getProductoById } from '../data/productos';
+import { getItemById } from '../firebaseConfig';
 import ItemDetail from '../components/ItemDetail';
 
 function ItemDetailContainer() {
-  const { itemId } = useParams(); // ← obtenemos el ID desde la URL
+  const { id } = useParams();
   const [producto, setProducto] = useState(null);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    getProductoById(itemId)
+    getItemById(id)
       .then((res) => {
         setProducto(res);
       })
-      .catch((err) => console.error(err));
-  }, [itemId]);
+      .catch((err) => console.error('Error al obtener producto:', err))
+      .finally(() => setLoading(false));
+  }, [id]);
 
-  // Mientras se carga
-  if (!producto) {
+  if (loading) {
     return <p style={{ padding: '20px' }}>Cargando producto...</p>;
   }
 
-  return <ItemDetail producto={producto} />
+  if (!producto) {
+    return <p style={{ padding: '20px' }}>Producto no encontrado</p>;
+  }
 
+  return <ItemDetail producto={producto} />;
 }
 
 export default ItemDetailContainer;
