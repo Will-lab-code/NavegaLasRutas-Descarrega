@@ -1,74 +1,81 @@
-# NavegaLasRutas+Descarrega
+# Proyecto Final - Descarrega
 
-Proyecto realizado como parte del curso de React JS.
-Esta aplicación simula una tienda en línea e implementa los fundamentos de **React Router**, navegación dinámica y organización por **componentes contenedores** y **componentes de presentación**.
+Este proyecto es la entrega final del curso de React JS en Coderhouse. Se trata de una aplicación de e-commerce desarrollada como una **Single Page Application (SPA)** utilizando React y Firebase.
 
----
+## 🛠️ Tecnologías utilizadas
 
-## **Descripción del proyecto**
+- React JS (Vite)
+- React Router DOM
+- Context API
+- Firebase (Firestore)
+- Bootstrap (para el diseño responsivo)
 
-Este proyecto incluye:
-
-* **Navegación entre vistas** utilizando React Router DOM.
-* **Vista de catálogo** general y filtrada por categoría.
-* **Vista detallada de cada producto**, incluyendo imagen, descripción, precio y un contador de unidades.
-* **NavBar** con enlaces funcionales a categorías y contacto.
-* **Ruta 404** para manejar errores de navegación.
-
----
-
-## **Componentes principales**
-
-### Contenedores (manejan lógica y estado):
-
-* `ItemListContainer`: obtiene productos y los filtra por categoría.
-* `ItemDetailContainer`: obtiene un producto por ID para mostrar su detalle.
-
-### Presentación (renderizan visualmente):
-
-* `NavBar`, `CartWidget`, `ItemList`, `Item`, `ItemDetail`, `ItemCount`, `NotFound`
-
----
-
-## **Tecnologías utilizadas**
-
-* [React](https://react.dev/)
-* [React Router DOM](https://reactrouter.com/)
-* [Bootstrap](https://getbootstrap.com/) para estilos y diseño responsive.
-* [Create React App](https://create-react-app.dev/) como herramienta de inicialización.
-
----
-
-## **Estructura de carpetas** (simplificada)
+## 📁 Estructura de componentes
 
 ```
 src/
-│
 ├── components/
-│   ├── CartWidget.js
-│   ├── NavBar.js
-│   ├── ItemList.js
-│   ├── Item.js
-│   ├── ItemDetail.js
-│   ├── ItemCount.js
-│   └── NotFound.js
-│
+│   ├── NavBar.jsx
+│   ├── CartWidget.jsx
+│   ├── Item.jsx
+│   ├── ItemList.jsx
+│   ├── ItemDetail.jsx
+│   ├── ItemCount.jsx
+│   ├── Cart.jsx
+│   └── CheckoutForm.jsx
 ├── containers/
-│   ├── ItemListContainer.js
-│   └── ItemDetailContainer.js
-│
-├── data/
-│   └── productos.js
-│
-├── App.js
+│   ├── ItemListContainer.jsx
+│   └── ItemDetailContainer.jsx
+├── context/
+│   └── CartContext.js
+├── firebaseConfig.js
+├── App.jsx
 └── index.js
 ```
 
+## 🔄 Funcionalidades
+
+- Listado de productos desde Firebase Firestore
+- Detalle individual de cada producto
+- Filtrado por categorías
+- Carrito de compras con Context API
+- Cálculo de totales y manejo de cantidades
+- Checkout que genera una orden en Firestore
+- Renderizado condicional: mensajes de carga, producto no encontrado, carrito vacío, etc.
+
+## 🛒 Firebase
+
+- Colección `items`: contiene los productos del e-commerce
+- Colección `orders`: se generan al finalizar una compra
+- Cada producto incluye: `nombre`, `descripcion`, `precio`, `imagen`, `categoria`
+
+## 🚀 Cómo ejecutar el proyecto
+
+1. Clonar el repositorio  
+```bash
+git clone https://github.com/tu-usuario/ProyectoFinal+Descarrega.git
+```
+
+2. Instalar dependencias  
+```bash
+npm install
+```
+
+3. Crear archivo `.env` con tus credenciales de Firebase (opcional)
+
+4. Iniciar el proyecto  
+```bash
+npm run dev
+```
+
+## ✅ Estado del proyecto
+
+✔️ Cumple con todos los requisitos de la consigna final  
+✔️ Deploy funcional  
+✔️ Código limpio y modular
+
 ---
 
-## **Autor**
-
-William Descarrega
-Proyecto entregado como parte del curso de React JS.
-
+**Autor:** William Descarrega  
+**Curso:** React JS – Coderhouse
 
